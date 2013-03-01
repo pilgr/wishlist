@@ -1,7 +1,6 @@
 package name.pilgr.wishlist;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
+import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
@@ -32,4 +31,18 @@ public class BitmapUtils {
         return bitmap;
     }
 
+    public static Bitmap toGrayscale(Bitmap bmpOriginal, float saturation) {
+        int height = bmpOriginal.getHeight();
+        int width = bmpOriginal.getWidth();
+
+        Bitmap bmpGrayscale = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bmpGrayscale);
+        Paint paint = new Paint();
+        ColorMatrix cm = new ColorMatrix();
+        cm.setSaturation(saturation);
+        ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
+        paint.setColorFilter(f);
+        c.drawBitmap(bmpOriginal, 0, 0, paint);
+        return bmpGrayscale;
+    }
 }
